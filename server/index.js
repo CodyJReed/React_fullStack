@@ -1,5 +1,9 @@
 const express = require("express"); //import using Common.js modules
+const mongoose = require("mongoose");
+const keys = require("./config/keys");
 require("./services/passport");
+
+mongoose.connect(keys.mongoURI);
 
 const app = express();
 
