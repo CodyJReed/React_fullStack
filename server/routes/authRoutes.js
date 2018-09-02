@@ -4,6 +4,7 @@ module.exports = app => {
   // Route Handler for "Get" type
   app.get(
     "/auth/google",
+    // "google" reference to GoogleStrategy
     passport.authenticate("google", {
       scope: ["profile", "email"]
     })
