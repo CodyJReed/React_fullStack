@@ -1,21 +1,9 @@
 const express = require("express"); //import using Common.js modules
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const keys = require("./config/keys");
+require("./services/passport");
 
 const app = express();
 
-
-passport.use(new, GoogleStrategy({
-  clientID: keys.googleClientID,
-  clientSecret: keys.googleClientSecret,
-  callbackURL: '/auth/google/callback'
-}, (accessToken) => {
-  console.log(accessToken);
-})
-);
-// Route Handler for "Get" type
-
+require("./route/authRoutes")(app);
 
 //If enviroment variable is defined by host, assign to 'PORT'; else assign 5000
 const PORT = process.env.PORT || 5000;
