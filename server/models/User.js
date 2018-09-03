@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  googleId: String
+  googleId: String,
+  githubId: String
 });
 
 // Create a Model Class titled users, holding the Model Instance of userSchema

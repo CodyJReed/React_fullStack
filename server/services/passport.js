@@ -1,12 +1,21 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const GithubStrategy = require("passport-github").Strategy;
 const mongoose = require("mongoose");
 const keys = require("../config/keys");
 
 const User = mongoose.model("users");
+
 // Take User and create cookie using Mongo generated id
 passport.serializeUser((user, done) => {
   done(null, user.id);
+});
+
+// Take cookie and associate id to user in MongoDB
+passport.deserializeUser((id, done) => {
+  User.findById(id).then(user => {
+    done(null, user);
+  });
 });
 
 passport.use(
@@ -24,6 +33,29 @@ passport.use(
         } else {
           // Create new User and store id in googleId
           new User({ googleId: profile.id })
+            .save()
+            .then(user => done(null, user));
+        }
+      });
+    }
+  )
+);
+
+passport.use(
+  new GithubStrategy(
+    {
+      clientID: keys.githubClientID,
+      clientSecret: keys.githubClientSecret,
+      callbackURL: "/auth/github/callback"
+    },
+    (accessToken, refreshToken, profile, done) => {
+      User.findOne({ githubId: profile.id }).then(existingUser => {
+        if (existingUser) {
+          // We already have a record with the given ID
+          done(null, existingUser);
+        } else {
+          // Create new User and store id in googleId
+          new User({ githubId: profile.id })
             .save()
             .then(user => done(null, user));
         }
