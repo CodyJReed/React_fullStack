@@ -11,7 +11,13 @@ module.exports = app => {
   );
 
   // After GoogleStrategy has returned oAuth on "/auth/google/callback," run Route Handler with oAuth code
-  app.get("/auth/google/callback", passport.authenticate("google"));
+  app.get(
+    "/auth/google/callback",
+    passport.authenticate("google"),
+    (req, res) => {
+      res.redirect("/surveys");
+    }
+  );
 
   //
   app.get("/api/current_user", (req, res) => {
@@ -31,13 +37,13 @@ module.exports = app => {
     passport.authenticate("github", { failureRedirect: "/" }),
     (req, res) => {
       // Successful authentication, redirect.
-      res.redirect("/api/current_user");
+      res.redirect("/surveys");
     }
   );
 
   //
   app.get("/api/logout", (req, res) => {
     req.logout();
-    res.send(req.user);
+    res.redirect("/");
   });
 };
