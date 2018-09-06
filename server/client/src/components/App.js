@@ -10,6 +10,7 @@ const SurveyNew = () => <h2>SurveyNew</h2>;
 
 class App extends Component {
   componentDidMount() {
+    // Check to see if a user is logged in by calling fetchUser
     this.props.fetchUser();
   }
 
