@@ -34,7 +34,7 @@ module.exports = app => {
   // After GithubStrategy has returned oAuth on "/auth/github/callback," run Route Handler with oAuth code
   app.get(
     "/auth/github/callback",
-    passport.authenticate("github", { failureRedirect: "/" }),
+    passport.authenticate("github"),
     (req, res) => {
       // Successful authentication, redirect.
       res.redirect("/surveys");
