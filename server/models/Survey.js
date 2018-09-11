@@ -10,7 +10,7 @@ const surveySchema = new Schema({
   // Use of SDC = SubDirectoryCollection
   recipients: [RecipientSchema],
   yes: { type: Number, default: 0 },
-  no: { type: Number, defaults: 0 },
+  no: { type: Number, default: 0 },
   // Tie surveySchema to unique "User" Id
   _user: { type: Schema.Types.ObjectId, ref: "User" },
   dateSent: Date,

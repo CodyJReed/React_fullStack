@@ -7,4 +7,4 @@ const recipientSchema = new Schema({
   responded: { type: Boolean, default: false }
 });
 // Create a Model Class titled users, holding the Model Instance of userSchema
-mongoose.model("recipients", recipientSchema);
+module.exports = recipientSchema;
